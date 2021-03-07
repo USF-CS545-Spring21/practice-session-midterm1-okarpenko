@@ -1,5 +1,6 @@
 package problem5;
 
+// Solution: see the code below
 /** A class representing a linked list. */
 public class LinkedList {
 	private Node head, tail;
@@ -45,8 +46,23 @@ public class LinkedList {
 		Node newListTail = null; // tail of the new linked list
 		Node current = head; // head of "this" linked list
 		// current will iterate over "this" list
-		// FILL IN CODE
 
+		while (current != null) {
+			if (current.elem() > threshold) { // found the element we want to include in the list
+				Node newNode = new Node(current.elem()); // create a new node
+				if (newListHead == null) { // we are inserting the first node
+					newListHead = newNode;
+					newListTail = newNode;
+				}
+				else {
+					// append to the newListTail:
+					newListTail.setNext(newNode);
+					newListTail  = newNode;
+
+				}
+			}
+			current = current.next();
+		}
 
 		return newListHead;
 	}
@@ -54,10 +70,14 @@ public class LinkedList {
 	// You can use this main method to test your code */
 	public static void main(String[] args) {
 		LinkedList list = new LinkedList();
+		list.append(2);
 		list.append(40);
 		list.append(16);
 		list.append(3);
 		list.append(30);
+		list.append(1);
+		list.append(5);
+		list.append(67);
 
 		list.printNodes();
 		System.out.println();

@@ -8,9 +8,29 @@ public int func1(int n) {
 }
 
 (a) Give a recurrence relation for this function.
-
+T(0) = C1
+T(1) = C2
+T(n) = 3T(n - 1) + C
+(We are solving 3 subproblems of size (n - 1) and perform some constant amount of work doing comparison, adding
+the results of the subproblems and returning from the function).
 (b) Solve the recurrence relation using repeated substitution or recursion trees to get the big Theta of the running time.
 
-Submit your solution here or via Canvas.
+T(n-1) = 3T(n-2) + C
+We can plug that into the original equation instead of T(n-1) to get:
+T(n) = 3*(3*T(n-2) + C)  + C = 9*T(n-2) +  (3*C + C)
+We can write that T(n-2) = 3*T(n-3) + C and plug that into the equation for T(n) to get:
+
+T(n) = 9*(3*T(n-3) + C) + (3*C + C) = 27*T(n-3) + (9*C+ 3*C + C)
+Observe that for C, after these substitutions we have the following sum: C *(3^2 + 3^1 + 3^0).
+
+After k substitutions, we will get:
+T(n) = 3^k* T(n-k) + C*( 3^0 + 3^1 + 3^2 + ... + 3^(k - 1))
+The sum of powers of 3 is geometric series, and the formula for this summation is  (3^k - 1) / (3 - 1) = (3^ k - 1) / 2.
+So after k substitutions, we will get:
+ T(n) =  3^k* T(n-k) + C*(3^k - 1) / 2        (*)
+We will reach the base case T(1) when n-k = 1, so when k  = n  - 1
+Plugging k = n-1 into the (*) equation, we get:
+T(n) = 3^(n-1) * T(1) + C * (3^(n-1) - 1) / 2 = = Theta(3^n)
+so the running time of this recursive function is exponential, 3 to the power of n.
 
 
